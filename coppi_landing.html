@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coppi - Aparcar, así de fácil</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #005ad9 0%, #17173d 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 50px;
+            margin-right: 10px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            position: relative;
+        }
+
+        .logo-pin {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-car {
+            width: 20px;
+            height: 14px;
+            background: #005ad9;
+            border-radius: 6px 6px 3px 3px;
+            position: relative;
+            transform: rotate(45deg);
+        }
+
+        .logo-car::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            height: 5px;
+            background: white;
+            border-radius: 2px;
+        }
+
+        .logo-car::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 3px;
+            width: 2.5px;
+            height: 2.5px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 11px 0 0 white;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .cta-button {
+            background: #FFC01D;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background: #ffb300;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #005ad9 0%, #17173d 100%);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300"><path fill="%23ffffff" fill-opacity="0.05" d="M0,100 C150,200 350,0 500,100 C650,200 850,0 1000,100 L1000,300 L0,300 Z"></path></svg>') no-repeat bottom;
+            background-size: cover;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero .tagline {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: #FFC01D;
+            color: #333;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary:hover {
+            background: #ffb300;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 192, 29, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #005ad9;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #005ad9;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #005ad9, #17173d);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* App Preview Section */
+        .app-preview {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .preview-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .preview-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #005ad9;
+        }
+
+        .preview-text p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .preview-phones {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            position: relative;
+        }
+
+        .phone-mockup {
+            width: 200px;
+            height: 400px;
+            background: #333;
+            border-radius: 25px;
+            padding: 8px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #005ad9, #17173d);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.9rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phone-screen::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 20px;
+            background: #333;
+            border-radius: 10px;
+        }
+
+        /* Stats Section */
+        .stats {
+            background: linear-gradient(135deg, #005ad9 0%, #17173d 100%);
+            color: white;
+            padding: 60px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: #FFC01D;
+        }
+
+        .stat-item p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* CTA Section */
+        .final-cta {
+            background: #f8f9fa;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .final-cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #005ad9;
+        }
+
+        .final-cta p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #666;
+        }
+
+        .download-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .download-btn {
+            background: #333;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background: #005ad9;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            padding: 40px 0 20px;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: #FFC01D;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a:hover {
+            color: #FFC01D;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #555;
+            padding-top: 20px;
+            color: #ccc;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .tagline {
+                font-size: 1.2rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .preview-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .email-form {
+                flex-direction: column;
+                padding: 15px;
+            }
+
+            .email-input {
+                margin-bottom: 10px;
+            }
+
+            .form-benefits {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .phone-mockup {
+                width: 150px;
+                height: 300px;
+            }
+
+            .features h2,
+            .preview-text h2,
+            .final-cta h2 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .phone-mockup:nth-child(1) {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .phone-mockup:nth-child(2) {
+            animation: float 3s ease-in-out infinite 0.5s;
+        }
+
+        .phone-mockup:nth-child(3) {
+            animation: float 3s ease-in-out infinite 1s;
+        }
+
+        /* Email Signup Section */
+        .email-signup {
+            background: linear-gradient(135deg, rgba(0, 90, 217, 0.1) 0%, rgba(23, 23, 61, 0.1) 100%);
+            padding: 60px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .email-signup::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 192, 29, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .signup-container {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .signup-container h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #005ad9;
+            font-weight: 700;
+        }
+
+        .signup-container p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .email-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            padding: 8px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .email-form:hover {
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .email-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            outline: none;
+            background: transparent;
+        }
+
+        .email-input::placeholder {
+            color: #999;
+        }
+
+        .email-submit {
+            background: linear-gradient(135deg, #005ad9, #17173d);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            font-size: 1rem;
+        }
+
+        .email-submit:hover {
+            background: linear-gradient(135deg, #0052c4, #1a1a4a);
+            transform: translateY(-2px);
+        }
+
+        .email-submit:active {
+            transform: translateY(0);
+        }
+
+        .form-benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .benefit-icon {
+            color: #FFC01D;
+            font-size: 1.2rem;
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            margin-top: 1rem;
+            text-align: center;
+            font-weight: bold;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        /* Error Message */
+        .error-message {
+            display: none;
+            background: linear-gradient(135deg, #dc3545, #e74c3c);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            margin-top: 1rem;
+            text-align: center;
+            font-weight: bold;
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* Loading state */
+        .loading {
+            position: relative;
+            pointer-events: none;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top: 2px solid white;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Loading animation */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <div class="logo-pin">
+                        <div class="logo-car"></div>
+                    </div>
+                </div>
+                Coppi
+            </div>
+            <ul class="nav-links">
+                <li><a href="#features">Características</a></li>
+                <li><a href="#how-it-works">Cómo funciona</a></li>
+                <li><a href="#early-access">Acceso anticipado</a></li>
+                <li><a href="#download">Descargar</a></li>
+            </ul>
+            <a href="#download" class="cta-button">Descargar App</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Coppi</h1>
+                <p class="tagline">Aparcar, así de fácil</p>
+                <p>Encuentra aparcamiento en tiempo real, reserva tu plaza y olvídate del estrés de aparcar en la ciudad.</p>
+                <div class="hero-buttons">
+                    <a href="#download" class="btn-primary">
+                        📱 Descargar App
+                    </a>
+                    <a href="#how-it-works" class="btn-secondary">Ver cómo funciona</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <h2>¿Por qué elegir Coppi?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🗺️</div>
+                    <h3>Tiempo Real</h3>
+                    <p>Información actualizada al instante sobre plazas disponibles con porcentajes de ocupación en cada zona.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🚗</div>
+                    <h3>Reserva Inteligente</h3>
+                    <p>Reserva tu plaza de aparcamiento antes de llegar y asegúrate de tener sitio esperándote.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📍</div>
+                    <h3>Navegación Integrada</h3>
+                    <p>Te guiamos directamente hasta tu plaza reservada con navegación paso a paso.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Precios Transparentes</h3>
+                    <p>Consulta tarifas, horarios y tipos de aparcamiento antes de confirmar tu reserva.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⏱️</div>
+                    <h3>Ahorra Tiempo</h3>
+                    <p>No más vueltas buscando aparcamiento. Encuentra tu plaza en segundos.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Filtros Personalizados</h3>
+                    <p>Filtra por tipo de aparcamiento, precio, distancia y características específicas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="app-preview" id="how-it-works">
+        <div class="container">
+            <div class="preview-content">
+                <div class="preview-text">
+                    <h2>Así de simple</h2>
+                    <p><strong>1. Busca</strong> - Abre la app y consulta la disponibilidad en tiempo real de tu zona.</p>
+                    <p><strong>2. Filtra</strong> - Aplica filtros según tus necesidades: tipo de aparcamiento, precio, distancia.</p>
+                    <p><strong>3. Reserva</strong> - Selecciona tu plaza ideal y confírmala con un simple toque.</p>
+                    <p><strong>4. Navega</strong> - Sigue las indicaciones hasta tu aparcamiento reservado.</p>
+                    <p><strong>5. Aparca</strong> - ¡Listo! Tu plaza te está esperando.</p>
+                </div>
+                <div class="preview-phones">
+                    <div class="phone-mockup">
+                        <div class="phone-screen">
+                            <div>
+                                <p>🗺️</p>
+                                <p>Mapa con disponibilidad</p>
+                                <p>74% - 20% - 60%</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="phone-mockup">
+                        <div class="phone-screen">
+                            <div>
+                                <p>🎯</p>
+                                <p>Filtros avanzados</p>
+                                <p>Calle • Parking • Ambos</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="phone-mockup">
+                        <div class="phone-screen">
+                            <div>
+                                <p>🚗</p>
+                                <p>Plaza confirmada</p>
+                                <p>Parking Soto Ilasu</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="email-signup" id="early-access">
+        <div class="container">
+            <div class="signup-container">
+                <h3>🚀 ¡Sé el primero en probarlo!</h3>
+                <p>Regístrate para recibir acceso anticipado a Coppi y obtén <strong>1 mes gratis</strong> cuando lancemos la app.</p>
+                
+                <form class="email-form" id="emailForm">
+                    <input 
+                        type="email" 
+                        class="email-input" 
+                        placeholder="tu@email.com" 
+                        required
+                        id="emailInput"
+                    >
+                    <button type="submit" class="email-submit" id="submitBtn">
+                        Apuntarme
+                    </button>
+                </form>
+
+                <div class="success-message" id="successMessage">
+                    ✅ ¡Genial! Te avisaremos cuando Coppi esté disponible
+                </div>
+
+                <div class="error-message" id="errorMessage">
+                    ❌ Ops, algo salió mal. Inténtalo de nuevo
+                </div>
+
+                <div class="form-benefits">
+                    <div class="benefit-item">
+                        <span class="benefit-icon">⚡</span>
+                        <span>Acceso anticipado</span>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-icon">🎁</span>
+                        <span>1 mes gratis</span>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-icon">📧</span>
+                        <span>Cero spam</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>95%</h3>
+                    <p>de usuarios encuentra aparcamiento en menos de 2 minutos</p>
+                </div>
+                <div class="stat-item">
+                    <h3>30€</h3>
+                    <p>promedio ahorrado al mes en multas y combustible</p>
+                </div>
+                <div class="stat-item">
+                    <h3>15min</h3>
+                    <p>menos de tiempo perdido buscando aparcamiento</p>
+                </div>
+                <div class="stat-item">
+                    <h3>5★</h3>
+                    <p>valoración media de nuestros usuarios</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="final-cta" id="download">
+        <div class="container">
+            <h2>¿Listo para aparcar sin estrés?</h2>
+            <p>Únete a miles de conductores que ya han descubierto la forma más fácil de aparcar.</p>
+            <a href="#" class="btn-primary">Descargar Coppi gratis</a>
+            
+            <div class="download-buttons">
+                <a href="#" class="download-btn">
+                    <span>📱</span>
+                    <div>
+                        <div style="font-size: 0.8rem;">Disponible en</div>
+                        <div style="font-weight: bold;">App Store</div>
+                    </div>
+                </a>
+                <a href="#" class="download-btn">
+                    <span>🤖</span>
+                    <div>
+                        <div style="font-size: 0.8rem;">Descárgalo en</div>
+                        <div style="font-weight: bold;">Google Play</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Coppi</h4>
+                    <p>La solución inteligente para aparcar en la ciudad. Aparcar, así de fácil.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Enlaces</h4>
+                    <a href="#">Sobre nosotros</a>
+                    <a href="#">Características</a>
+                    <a href="#">Precios</a>
+                    <a href="#">Soporte</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <a href="#">Términos y condiciones</a>
+                    <a href="#">Política de privacidad</a>
+                    <a href="#">Cookies</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <a href="mailto:hola@coppi.app">hola@coppi.app</a>
+                    <a href="tel:+34900000000">+34 900 000 000</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Coppi. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header background on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(0, 90, 217, 0.95)';
+            } else {
+                header.style.background = 'linear-gradient(135deg, #005ad9 0%, #17173d 100%)';
+            }
+        });
+
+        // Email form submission
+        document.getElementById('emailForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const emailInput = document.getElementById('emailInput');
+            const submitBtn = document.getElementById('submitBtn');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // Hide previous messages
+            successMessage.classList.remove('show');
+            errorMessage.classList.remove('show');
+            
+            // Validate email
+            const email = emailInput.value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (!emailRegex.test(email)) {
+                errorMessage.textContent = '❌ Por favor, introduce un email válido';
+                errorMessage.classList.add('show');
+                return;
+            }
+            
+            // Show loading state
+            submitBtn.classList.add('loading');
+            submitBtn.textContent = '';
+            submitBtn.disabled = true;
+            
+            // Simulate API call (replace with your actual endpoint)
+            setTimeout(() => {
+                // Simulate success (you can add actual API integration here)
+                console.log('Email registered:', email);
+                
+                // Store email in localStorage (for demo purposes)
+                const existingEmails = JSON.parse(localStorage.getItem('coppi_emails') || '[]');
+                if (!existingEmails.includes(email)) {
+                    existingEmails.push(email);
+                    localStorage.setItem('coppi_emails', JSON.stringify(existingEmails));
+                }
+                
+                // Show success message
+                successMessage.classList.add('show');
+                emailInput.value = '';
+                
+                // Reset button
+                submitBtn.classList.remove('loading');
+                submitBtn.textContent = '¡Registrado!';
+                submitBtn.style.background = 'linear-gradient(135deg, #28a745, #20c997)';
+                
+                // Reset button after 3 seconds
+                setTimeout(() => {
+                    submitBtn.textContent = 'Apuntarme';
+                    submitBtn.style.background = 'linear-gradient(135deg, #005ad9, #17173d)';
+                    submitBtn.disabled = false;
+                }, 3000);
+                
+            }, 1500); // Simulate network delay
+        });
+
+        // Enhanced email input validation
+        document.getElementById('emailInput').addEventListener('input', function(e) {
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.classList.remove('show');
+            
+            // Real-time validation feedback
+            const email = e.target.value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (email && !emailRegex.test(email)) {
+                e.target.style.borderColor = '#dc3545';
+            } else {
+                e.target.style.borderColor = 'transparent';
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all feature cards and stat items
+        document.querySelectorAll('.feature-card, .stat-item, .signup-container').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Email counter display (for demo purposes)
+        function updateEmailCounter() {
+            const emails = JSON.parse(localStorage.getItem('coppi_emails') || '[]');
+            if (emails.length > 0) {
+                console.log(`Emails registrados: ${emails.length}`);
+            }
+        }
+
+        // Update counter on page load
+        updateEmailCounter();
+    </script>
+</body>
+</html>
